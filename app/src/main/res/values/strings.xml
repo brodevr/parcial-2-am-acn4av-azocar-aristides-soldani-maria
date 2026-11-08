@@ -122,4 +122,13 @@
     <string name="dialog_logout_mensaje">¿Querés salir de tu cuenta?</string>
     <string name="btn_cerrar_sesion">Salir</string>
     <string name="msg_sesion_cerrada">Sesión cerrada</string>
+
+    <!-- Firestore -->
+    <string name="saldo_cargando">$ —</string>
+    <string name="mov_transferencia_a">Transferencia a %1$s</string>
+    <string name="fecha_hoy">Hoy, %1$s</string>
+    <string name="fecha_ayer">Ayer, %1$s</string>
+    <string name="sin_movimientos">Todavía no tenés movimientos</string>
+    <string name="msg_error_carga">No pudimos cargar tus datos</string>
+    <string name="msg_transferencia_error">No se pudo completar la transferencia</string>
 </resources>
