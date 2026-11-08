@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,29 +14,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiBanco">
 
-        <!-- Actividad Principal (Pantalla de inicio) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Actividad de Transferir -->
         <activity
-            android:name=".TransferirActivity"
+            android:name=".RegistroActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- Actividad de Alias -->
         <activity
-            android:name=".AliasActivity"
-            android:exported="false" />
+            android:name=".TransferirActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".MovimientosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AliasActivity"
             android:exported="false" />
 
     </application>
