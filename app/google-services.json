@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800766033924",
+    "project_id": "mibanco-f1d26",
+    "storage_bucket": "mibanco-f1d26.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800766033924:android:1a8b8ca7b1ba9a3f35f551",
+        "android_client_info": {
+          "package_name": "ar.edu.davinci.mibanco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP5PW6asBc_RuRkxncWF-57UJHojF3e9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
