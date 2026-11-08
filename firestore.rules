@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function esDuenio(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /usuarios/{uid} {
+      allow read: if esDuenio(uid);
+      // El saldo nunca puede quedar negativo, aunque alguien saltee la validación de la app
+      allow create, update: if esDuenio(uid)
+                            && request.resource.data.saldo is number
+                            && request.resource.data.saldo >= 0;
+
+      // Historial inmutable: se puede agregar, no editar ni borrar
+      match /movimientos/{movimientoId} {
+        allow read, create: if esDuenio(uid);
+      }
+    }
+  }
+}
