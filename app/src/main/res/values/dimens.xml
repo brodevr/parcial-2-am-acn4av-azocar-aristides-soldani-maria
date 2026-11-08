@@ -31,4 +31,5 @@
     <dimen name="logo_login">64dp</dimen>
     <dimen name="text_brand">28sp</dimen>
     <dimen name="login_header_padding">48dp</dimen>
+    <dimen name="touch_target">40dp</dimen>
 </resources>

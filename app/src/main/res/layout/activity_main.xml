@@ -36,7 +36,7 @@
                     android:layout_height="32dp"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/desc_logo"
-                    android:src="@drawable/ic_bank"
+                    android:src="@drawable/baseline_account_balance_24"
                     app:tint="@color/navy" />
 
                 <TextView
@@ -73,16 +73,17 @@
                         android:text="@string/bienvenida"
                         android:textColor="@color/text_muted"
                         android:textSize="@dimen/text_caption" />
-                    <ImageView
-                        android:id="@+id/btnLogout"
-                        android:layout_width="@dimen/header_icon"
-                        android:layout_height="@dimen/header_icon"
-                        android:layout_marginStart="@dimen/space_sm"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/desc_logout"
-                        android:src="@drawable/ic_logout"
-                        app:tint="@color/navy" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/btnLogout"
+                    android:layout_width="@dimen/touch_target"
+                    android:layout_height="@dimen/touch_target"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/desc_logout"
+                    android:padding="@dimen/space_sm"
+                    android:src="@drawable/ic_logout"
+                    app:tint="@color/navy" />
 
             </LinearLayout>
 
