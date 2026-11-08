@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvMovimientos;
@@ -71,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuario == null) {
+            irALogin();
+            return;
+        }
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -84,6 +93,18 @@ public class MainActivity extends AppCompatActivity {
         btnTransferir = findViewById(R.id.btnTransferir);
         btnAlias = findViewById(R.id.btnAlias);
         tvVerTodos = findViewById(R.id.tvVerTodos);
+        TextView tvSaludo = findViewById(R.id.tvSaludo);
+        TextView tvAvatar = findViewById(R.id.tvAvatar);
+        ImageView btnLogout = findViewById(R.id.btnLogout);
+
+        String nombre = usuario.getDisplayName();
+        if (nombre == null || nombre.isEmpty()) {
+            nombre = getString(R.string.saludo_generico);
+        }
+        tvSaludo.setText(getString(R.string.saludo_nombre, primerNombre(nombre)));
+        tvAvatar.setText(iniciales(nombre));
+
+        btnLogout.setOnClickListener(v -> confirmarLogout());
 
 
         movimientos = crearMovimientos();
@@ -151,4 +172,39 @@ public class MainActivity extends AppCompatActivity {
                 getString(R.string.mov_supermercado), "6 sep., 11:05", 9870, false));
         return lista;
     }
-}
+
+        private void confirmarLogout () {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.dialog_logout_titulo)
+                    .setMessage(R.string.dialog_logout_mensaje)
+                    .setNegativeButton(R.string.dialog_cancelar, null)
+                    .setPositiveButton(R.string.btn_cerrar_sesion, (dialog, which) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(this, R.string.msg_sesion_cerrada, Toast.LENGTH_SHORT).show();
+                        irALogin();
+                    })
+                    .show();
+        }
+
+        private void irALogin () {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+
+        private static String primerNombre (String nombre){
+            return nombre.trim().split("\\s+")[0];
+        }
+
+        private static String iniciales (String nombre){
+            String[] partes = nombre.trim().split("\\s+");
+            StringBuilder resultado = new StringBuilder();
+            for (int i = 0; i < Math.min(2, partes.length); i++) {
+                if (!partes[i].isEmpty()) {
+                    resultado.append(Character.toUpperCase(partes[i].charAt(0)));
+                }
+            }
+            return resultado.toString();
+        }
+    }
