@@ -27,4 +27,8 @@
     <dimen name="avatar_movimiento">44dp</dimen>
     <dimen name="badge_size">18dp</dimen>
     <dimen name="header_icon">24dp</dimen>
+
+    <dimen name="logo_login">64dp</dimen>
+    <dimen name="text_brand">28sp</dimen>
+    <dimen name="login_header_padding">48dp</dimen>
 </resources>

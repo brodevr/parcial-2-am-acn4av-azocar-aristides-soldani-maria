@@ -90,4 +90,36 @@
     <string name="saldo_oculto">• • • • • •</string>
     <string name="desc_logo">Logo del banco</string>
     <string name="ahora">Recién</string>
+
+    <!-- Login y registro -->
+    <string name="subtitulo_login">Tu banco, en tu bolsillo</string>
+    <string name="titulo_login">Ingresá a tu cuenta</string>
+    <string name="titulo_registro">Creá tu cuenta</string>
+    <string name="hint_nombre">Nombre y apellido</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_password_confirmar">Repetí la contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="btn_registrar">Crear cuenta</string>
+    <string name="txt_sin_cuenta">¿No tenés cuenta?</string>
+    <string name="txt_ir_registro">Registrate</string>
+    <string name="txt_con_cuenta">¿Ya tenés cuenta?</string>
+    <string name="txt_ir_login">Ingresá</string>
+    <string name="msg_nombre_vacio">Ingresá tu nombre</string>
+    <string name="msg_email_invalido">Ingresá un email válido</string>
+    <string name="msg_password_vacia">Ingresá tu contraseña</string>
+    <string name="msg_password_corta">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="msg_passwords_distintas">Las contraseñas no coinciden</string>
+    <string name="msg_login_error">Email o contraseña incorrectos</string>
+    <string name="msg_email_en_uso">Ya existe una cuenta con ese email</string>
+    <string name="msg_registro_error">No pudimos crear la cuenta. Intentá de nuevo</string>
+
+    <!-- Sesión -->
+    <string name="saludo_nombre">Hola, %1$s</string>
+    <string name="saludo_generico">cliente</string>
+    <string name="desc_logout">Cerrar sesión</string>
+    <string name="dialog_logout_titulo">Cerrar sesión</string>
+    <string name="dialog_logout_mensaje">¿Querés salir de tu cuenta?</string>
+    <string name="btn_cerrar_sesion">Salir</string>
+    <string name="msg_sesion_cerrada">Sesión cerrada</string>
 </resources>
