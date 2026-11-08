@@ -59,4 +59,27 @@
         app:layout_constraintTop_toBottomOf="@id/llHeaderMovimientos"
         tools:listitem="@layout/item_movimiento" />
 
+    <ProgressBar
+        android:id="@+id/progressMovimientos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/teal"
+        app:layout_constraintBottom_toBottomOf="@id/rvTodosMovimientos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvTodosMovimientos" />
+
+    <TextView
+        android:id="@+id/tvSinMovimientosTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sin_movimientos"
+        android:textColor="@color/text_muted"
+        android:textSize="@dimen/text_body"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvTodosMovimientos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvTodosMovimientos" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
