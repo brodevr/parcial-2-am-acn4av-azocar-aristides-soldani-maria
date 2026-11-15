@@ -140,4 +140,17 @@
     <string name="cotizacion_compra">Compra %1$s</string>
     <string name="cotizacion_actualizado">Actualizado: %1$s</string>
     <string name="msg_error_cotizaciones">No pudimos cargar las cotizaciones. Tocá para reintentar</string>
+
+    <!-- Detalle de movimiento -->
+    <string name="titulo_detalle">Comprobante</string>
+    <string name="detalle_estado">Operación aprobada</string>
+    <string name="detalle_tipo">Tipo</string>
+    <string name="detalle_ingreso">Ingreso</string>
+    <string name="detalle_egreso">Egreso</string>
+    <string name="detalle_fecha">Fecha y hora</string>
+    <string name="detalle_operacion">N.º de operación</string>
+    <string name="detalle_cuenta">Cuenta</string>
+    <string name="btn_compartir">Compartir comprobante</string>
+    <string name="compartir_titulo">Compartir con</string>
+    <string name="compartir_texto">Comprobante MiBanco\n%1$s\nMonto: %2$s\nFecha: %3$s\nOperación: %4$s</string>
 </resources>

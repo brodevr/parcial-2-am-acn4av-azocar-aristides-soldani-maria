@@ -35,4 +35,7 @@
 
     <dimen name="text_cotizacion">18sp</dimen>
     <dimen name="cotizaciones_alto_min">72dp</dimen>
+
+    <dimen name="avatar_detalle">72dp</dimen>
+    <dimen name="text_monto_detalle">30sp</dimen>
 </resources>
