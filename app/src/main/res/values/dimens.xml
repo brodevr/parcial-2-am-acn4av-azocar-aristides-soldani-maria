@@ -32,4 +32,7 @@
     <dimen name="text_brand">28sp</dimen>
     <dimen name="login_header_padding">48dp</dimen>
     <dimen name="touch_target">40dp</dimen>
+
+    <dimen name="text_cotizacion">18sp</dimen>
+    <dimen name="cotizaciones_alto_min">72dp</dimen>
 </resources>

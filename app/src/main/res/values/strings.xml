@@ -131,4 +131,13 @@
     <string name="sin_movimientos">Todavía no tenés movimientos</string>
     <string name="msg_error_carga">No pudimos cargar tus datos</string>
     <string name="msg_transferencia_error">No se pudo completar la transferencia</string>
+
+    <!-- Cotizaciones -->
+    <string name="titulo_cotizaciones">Dólar hoy</string>
+    <string name="cotizacion_oficial">Oficial</string>
+    <string name="cotizacion_blue">Blue</string>
+    <string name="cotizacion_mep">MEP</string>
+    <string name="cotizacion_compra">Compra %1$s</string>
+    <string name="cotizacion_actualizado">Actualizado: %1$s</string>
+    <string name="msg_error_cotizaciones">No pudimos cargar las cotizaciones. Tocá para reintentar</string>
 </resources>
