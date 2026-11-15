@@ -45,4 +45,6 @@ dependencies {
     implementation libs.firebase.firestore
     implementation libs.recyclerview
     implementation libs.glide
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.gson
 }
