@@ -1,9 +1,13 @@
 package ar.edu.davinci.mibanco;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +15,9 @@ import java.util.Map;
 /**
  * Modelo de un movimiento de la cuenta.
  * Se lee y escribe en Firestore en usuarios/{uid}/movimientos.
+ * Implementa Parcelable para poder viajar dentro de un Bundle hacia DetalleMovimientoActivity.
  */
-public class Movimiento implements Serializable {
+public class Movimiento implements Parcelable {
 
     // Nombres de los campos en Firestore
     public static final String CAMPO_TITULO = "titulo";
@@ -65,6 +70,49 @@ public class Movimiento implements Serializable {
         datos.put(CAMPO_FECHA, new Timestamp(fecha));
         return datos;
     }
+
+    // ---------- Parcelable ----------
+
+    /** Reconstruye el objeto leyendo los campos en el MISMO orden en que se escribieron. */
+    protected Movimiento(Parcel in) {
+        id = in.readString();
+        avatarUrl = in.readString();
+        titulo = in.readString();
+        fecha = new Date(in.readLong());
+        monto = in.readDouble();
+        esIngreso = in.readByte() != 0;
+    }
+
+    /** Aplana el objeto en el Parcel, campo por campo. */
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(avatarUrl);
+        dest.writeString(titulo);
+        dest.writeLong(fecha.getTime());
+        dest.writeDouble(monto);
+        dest.writeByte((byte) (esIngreso ? 1 : 0)); // writeBoolean requiere API 29
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /** Android usa CREATOR para crear instancias al desempaquetar el Bundle. */
+    public static final Creator<Movimiento> CREATOR = new Creator<Movimiento>() {
+        @Override
+        public Movimiento createFromParcel(Parcel in) {
+            return new Movimiento(in);
+        }
+
+        @Override
+        public Movimiento[] newArray(int size) {
+            return new Movimiento[size];
+        }
+    };
+
+    // ---------- Getters ----------
 
     public String getId() { return id; }
     public String getAvatarUrl() { return avatarUrl; }
