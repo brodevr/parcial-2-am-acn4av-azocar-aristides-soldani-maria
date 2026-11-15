@@ -2,13 +2,17 @@ package ar.edu.davinci.mibanco;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +30,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
     private boolean saldoCargado = false;
     private boolean saldoVisible = true;
     private boolean inicializando = false;
+
+    // Cotizaciones del dólar
+    private static final String[] CASAS = {"oficial", "blue", "bolsa"};
+    private static final int[] NOMBRES_CASAS = {
+            R.string.cotizacion_oficial, R.string.cotizacion_blue, R.string.cotizacion_mep};
+
+    private LinearLayout llCotizaciones;
+    private ProgressBar progressCotizaciones;
+    private TextView tvErrorCotizaciones;
+    private TextView tvCotizacionesActualizado;
+    private Call<List<Cotizacion>> llamadaCotizaciones;
 
     // Recibe el resultado de TransferirActivity
     private final ActivityResultLauncher<Intent> transferirLauncher =
@@ -130,6 +152,118 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MovimientosActivity.class)));
 
         btnLogout.setOnClickListener(v -> confirmarLogout());
+
+        llCotizaciones = findViewById(R.id.llCotizaciones);
+        progressCotizaciones = findViewById(R.id.progressCotizaciones);
+        tvErrorCotizaciones = findViewById(R.id.tvErrorCotizaciones);
+        tvCotizacionesActualizado = findViewById(R.id.tvCotizacionesActualizado);
+        tvErrorCotizaciones.setOnClickListener(v -> cargarCotizaciones());
+        cargarCotizaciones();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Si la Activity se cierra antes de que llegue la respuesta, cancelamos la llamada
+        if (llamadaCotizaciones != null) {
+            llamadaCotizaciones.cancel();
+        }
+    }
+
+    /**
+     * Pide las cotizaciones a DolarApi con Retrofit.
+     * enqueue() hace la llamada en un hilo de fondo y ejecuta el callback en el hilo principal,
+     * así que desde onResponse se puede tocar la UI directamente.
+     */
+    private void cargarCotizaciones() {
+        progressCotizaciones.setVisibility(View.VISIBLE);
+        tvErrorCotizaciones.setVisibility(View.GONE);
+        llCotizaciones.removeAllViews();
+
+        llamadaCotizaciones = DolarApiCliente.get().getDolares();
+        llamadaCotizaciones.enqueue(new Callback<List<Cotizacion>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Cotizacion>> call,
+                                   @NonNull Response<List<Cotizacion>> response) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                progressCotizaciones.setVisibility(View.GONE);
+                if (response.isSuccessful() && response.body() != null) {
+                    mostrarCotizaciones(response.body());
+                } else {
+                    tvErrorCotizaciones.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Cotizacion>> call, @NonNull Throwable t) {
+                if (call.isCanceled() || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                progressCotizaciones.setVisibility(View.GONE);
+                tvErrorCotizaciones.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    /** Infla una tarjeta por cada tipo de dólar que mostramos, en el orden de CASAS. */
+    private void mostrarCotizaciones(List<Cotizacion> cotizaciones) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        Date masReciente = null;
+
+        for (int i = 0; i < CASAS.length; i++) {
+            Cotizacion c = buscar(cotizaciones, CASAS[i]);
+            if (c == null || c.getVenta() == null) {
+                continue;
+            }
+            View item = inflater.inflate(R.layout.item_cotizacion, llCotizaciones, false);
+            ((TextView) item.findViewById(R.id.tvCasa)).setText(NOMBRES_CASAS[i]);
+            ((TextView) item.findViewById(R.id.tvVenta)).setText(formatearDolar(c.getVenta()));
+            ((TextView) item.findViewById(R.id.tvCompra)).setText(getString(
+                    R.string.cotizacion_compra,
+                    c.getCompra() != null ? formatearDolar(c.getCompra()) : "—"));
+            llCotizaciones.addView(item);
+
+            Date fecha = parsearFecha(c.getFechaActualizacion());
+            if (fecha != null && (masReciente == null || fecha.after(masReciente))) {
+                masReciente = fecha;
+            }
+        }
+
+        if (llCotizaciones.getChildCount() == 0) {
+            tvErrorCotizaciones.setVisibility(View.VISIBLE);
+        }
+        tvCotizacionesActualizado.setText(masReciente == null ? "" : getString(
+                R.string.cotizacion_actualizado,
+                MovimientoAdapter.formatearFecha(this, masReciente)));
+    }
+
+    private static Cotizacion buscar(List<Cotizacion> lista, String casa) {
+        for (Cotizacion c : lista) {
+            if (casa.equals(c.getCasa())) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    private static String formatearDolar(double valor) {
+        NumberFormat formato = NumberFormat.getNumberInstance(Locale.forLanguageTag("es-AR"));
+        formato.setMaximumFractionDigits(0);
+        return "$" + formato.format(valor);
+    }
+
+    /** DolarApi devuelve fechas ISO 8601 en UTC, por ejemplo 2026-11-15T12:00:00.000Z. */
+    private static Date parsearFecha(String iso) {
+        if (iso == null) {
+            return null;
+        }
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US).parse(iso);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     /**
