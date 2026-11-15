@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvCasa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/text_caption"
+        android:textStyle="bold"
+        tools:text="Blue" />
+
+    <TextView
+        android:id="@+id/tvVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xs"
+        android:textColor="@color/navy"
+        android:textSize="@dimen/text_cotizacion"
+        android:textStyle="bold"
+        tools:text="$1.575" />
+
+    <TextView
+        android:id="@+id/tvCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xs"
+        android:textColor="@color/text_muted"
+        android:textSize="@dimen/text_caption"
+        tools:text="Compra $1.555" />
+
+</LinearLayout>

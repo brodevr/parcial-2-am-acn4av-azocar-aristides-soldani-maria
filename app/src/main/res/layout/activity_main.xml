@@ -169,6 +169,70 @@
 
             </LinearLayout>
 
+            <!-- Cotizaciones del dólar (DolarApi via Retrofit) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/titulo_cotizaciones"
+                    android:textColor="@color/navy"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCotizacionesActualizado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_muted"
+                    android:textSize="@dimen/text_caption"
+                    tools:text="Actualizado: Hoy, 09:00" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_card_white"
+                android:minHeight="@dimen/cotizaciones_alto_min"
+                android:padding="@dimen/space_md">
+
+                <!-- Se llena desde Java inflando item_cotizacion.xml -->
+                <LinearLayout
+                    android:id="@+id/llCotizaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <ProgressBar
+                    android:id="@+id/progressCotizaciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/teal" />
+
+                <TextView
+                    android:id="@+id/tvErrorCotizaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="@dimen/space_sm"
+                    android:text="@string/msg_error_cotizaciones"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_body"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
             <!-- Encabezado de movimientos -->
             <LinearLayout
                 android:layout_width="match_parent"
