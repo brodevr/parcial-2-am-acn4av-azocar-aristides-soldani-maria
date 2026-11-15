@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainDetalle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    tools:context=".DetalleMovimientoActivity">
+
+    <!-- Header fijo -->
+    <LinearLayout
+        android:id="@+id/llHeaderDetalle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_lg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnVolverDetalle"
+            android:layout_width="@dimen/header_icon"
+            android:layout_height="@dimen/header_icon"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/desc_volver"
+            android:rotation="-90"
+            android:src="@drawable/ic_arrow_up"
+            app:tint="@color/navy" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_md"
+            android:layout_weight="1"
+            android:text="@string/titulo_detalle"
+            android:textColor="@color/navy"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llHeaderDetalle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_lg">
+
+            <!-- Resumen -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/space_xl">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivAvatarDetalle"
+                    android:layout_width="@dimen/avatar_detalle"
+                    android:layout_height="@dimen/avatar_detalle"
+                    android:contentDescription="@string/desc_avatar_movimiento"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.MiBanco.Circular"
+                    tools:src="@drawable/avatar_default" />
+
+                <TextView
+                    android:id="@+id/tvTituloDetalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_md"
+                    android:gravity="center"
+                    android:textColor="@color/navy"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold"
+                    tools:text="Transferencia a Martina" />
+
+                <TextView
+                    android:id="@+id/tvMontoDetalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:textColor="@color/navy"
+                    android:textSize="@dimen/text_monto_detalle"
+                    android:textStyle="bold"
+                    tools:text="-$12.000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:text="@string/detalle_estado"
+                    android:textColor="@color/teal"
+                    android:textSize="@dimen/text_caption"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Datos de la operación -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:background="@drawable/bg_card_white"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/space_xl"
+                android:paddingEnd="@dimen/space_xl">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_md"
+                    android:paddingBottom="@dimen/space_md">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detalle_tipo"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_body" />
+
+                    <TextView
+                        android:id="@+id/tvTipoDetalle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textColor="@color/navy"
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_md"
+                    android:paddingBottom="@dimen/space_md">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detalle_fecha"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_body" />
+
+                    <TextView
+                        android:id="@+id/tvFechaDetalle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textColor="@color/navy"
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_md"
+                    android:paddingBottom="@dimen/space_md">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detalle_operacion"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_body" />
+
+                    <TextView
+                        android:id="@+id/tvOperacionDetalle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textColor="@color/navy"
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_md"
+                    android:paddingBottom="@dimen/space_md">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detalle_cuenta"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_body" />
+
+                    <TextView
+                        android:id="@+id/tvCuentaDetalle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_md"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textColor="@color/navy"
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCompartir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xl"
+                android:backgroundTint="@color/navy"
+                android:text="@string/btn_compartir"
+                android:textColor="@color/white"
+                app:icon="@drawable/ic_share"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
