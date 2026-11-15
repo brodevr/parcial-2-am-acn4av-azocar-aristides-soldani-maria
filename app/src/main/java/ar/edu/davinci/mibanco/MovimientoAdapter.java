@@ -25,10 +25,17 @@ public class MovimientoAdapter
 
     private static final Locale LOCALE_AR = Locale.forLanguageTag("es-AR");
 
-    private final List<Movimiento> movimientos;
+    /** Lo implementa la Activity para saber qué movimiento se tocó. */
+    public interface OnMovimientoClickListener {
+        void onMovimientoClick(Movimiento movimiento);
+    }
 
-    public MovimientoAdapter(List<Movimiento> movimientos) {
+    private final List<Movimiento> movimientos;
+    private final OnMovimientoClickListener listener;
+
+    public MovimientoAdapter(List<Movimiento> movimientos, OnMovimientoClickListener listener) {
         this.movimientos = movimientos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -41,7 +48,9 @@ public class MovimientoAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MovimientoViewHolder holder, int position) {
-        holder.bind(movimientos.get(position));
+        Movimiento movimiento = movimientos.get(position);
+        holder.bind(movimiento);
+        holder.itemView.setOnClickListener(v -> listener.onMovimientoClick(movimiento));
     }
 
     @Override
@@ -92,7 +101,7 @@ public class MovimientoAdapter
         }
     }
 
-    private static String formatearMonto(Movimiento movimiento) {
+     static String formatearMonto(Movimiento movimiento) {
         NumberFormat formato = NumberFormat.getNumberInstance(LOCALE_AR);
         formato.setMaximumFractionDigits(0);
         String signo = movimiento.esIngreso() ? "+" : "-";

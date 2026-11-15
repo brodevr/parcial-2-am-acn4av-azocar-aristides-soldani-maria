@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
         tvSaludo.setText(getString(R.string.saludo_nombre, primerNombre(nombre)));
         tvAvatar.setText(iniciales(nombre));
 
-        adapter = new MovimientoAdapter(movimientos);
+        adapter = new MovimientoAdapter(movimientos,
+                m -> DetalleMovimientoActivity.abrir(this, m));
         rvMovimientos.setLayoutManager(new LinearLayoutManager(this));
         rvMovimientos.setAdapter(adapter);
 

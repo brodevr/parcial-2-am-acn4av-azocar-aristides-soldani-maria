@@ -36,7 +36,8 @@ public class MovimientosActivity extends AppCompatActivity {
         }
 
         List<Movimiento> movimientos = new ArrayList<>();
-        MovimientoAdapter adapter = new MovimientoAdapter(movimientos);
+        MovimientoAdapter adapter = new MovimientoAdapter(movimientos,
+                m -> DetalleMovimientoActivity.abrir(this, m));
 
         RecyclerView rv = findViewById(R.id.rvTodosMovimientos);
         rv.setLayoutManager(new LinearLayoutManager(this));
